@@ -3,14 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginModule } from './login/login.module';
+import { DashboardModule } from './core/dashboard/dashboard.module';
+import { NewTopicComponent } from './core/new-topic/new-topic.component';
+import { NewTopicModule } from './core/new-topic/new-topic.module';
 
 @NgModule({
   declarations: [
-    AppComponent
-  ],
+    AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    LoginModule,
+    DashboardModule,
+    NewTopicModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

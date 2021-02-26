@@ -1,0 +1,14 @@
+<div class="container justify-content-center d-flex mt-2">
+  <h2 class="m-2">Add New Topic</h2><button mat-fab (click)=addNewTopic()>
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+<div class="container text-center mt-2 p-2" *ngIf="visibleContent.length"><h2>Your Progress as of now</h2>
+  <div *ngFor="let a of visibleContent" class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mr-3">
+      <span *ngFor="let t of a.content;"><span>{{t.text}}{{t.delimeter}}</span>
+    </span>
+    </div>
+    {{a.progress}}%
+  </div>
+</div>
