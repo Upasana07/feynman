@@ -1,16 +1,24 @@
 <div class="container text-center mt-5">
-  <mat-form-field appearance="fill">
-    <mat-label>Textarea</mat-label>
-    <textarea matInput [formControl]="topic"></textarea>
-  </mat-form-field>
+  <div [formGroup]=topicDetails class="details">
+    <mat-form-field appearance="fill" class="mr-3">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="topicTitle">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="topic"></textarea>
+    </mat-form-field>
+  </div>
   <div>
     <button mat-raised-button color="accent" class="mr-2" (click)=goBack()>Go Back</button>
-    <button mat-raised-button color="accent" (click)=add()>Add</button>
+    <button mat-raised-button color="accent" (click)=add(topicDetails)>Add</button>
   </div>
 </div>
-<div class="container text-center mt-2 p-2" *ngIf="visibleContent.length"><h2>Your Entered Topic is written below</h2>
-  <div *ngFor="let a of visibleContent">
-    <span *ngFor="let t of a.content; let i = index" (click)=onClick(t,i,newUserTemplate)><span matTooltip="click to score">{{t.text}}{{t.delimeter}}</span></span>
+<div class="container text-center mt-5 p-2" *ngIf="visibleContent.length">
+  <h2>Topic List</h2>
+  <div *ngFor="let a of visibleContent" class="mb-5"> <span class="mr-2 ">Topic -</span>
+    <span *ngFor="let t of a.content; let i = index" (click)=onClick(t,i,newUserTemplate)><span ngClass="{{t.class}}"
+        matTooltip="click to score">{{t.text}}{{t.delimeter}}</span></span>
   </div>
 </div>
 
@@ -20,15 +28,14 @@
     <mat-form-field appearance="fill">
       <mat-label>Enter the score</mat-label>
       <mat-select [formControl]="scoreValue">
-        <mat-option *ngFor="let score of scores" [value]="score.value">
+        <mat-option *ngFor="let score of scores" [value]="score.value" ngClass="{{score.class}}">
           {{score.viewValue}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <div class="mt-5 justify-content-between d-flex">
       <button mat-stroked-button (click)=cancel()>Cancel</button>
-    <button mat-stroked-button (click)=save(data.text.text)>Save</button>
+      <button mat-stroked-button (click)=save(data.text.text)>Save</button>
     </div>
   </div>
 </ng-template>
-

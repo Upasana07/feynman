@@ -13,21 +13,27 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.visibleContent = JSON.parse(localStorage.getItem('topic')) || '';
-    this.visibleContent.forEach(element => {
-      let sum: number = 0;
-      element.content.forEach(a => {
-        var val = parseInt(a.score);
-        if(val)
-        sum = sum + val;
-        else
-        sum = sum + 0;
+    if(this.visibleContent){
+      this.visibleContent.forEach(element => {
+        let sum: number = 0;
+        element.content.forEach(a => {
+          var val = parseInt(a.score);
+          if(val)
+          sum = sum + val;
+          else
+          sum = sum + 0;
+        });
+        this.progress = (sum / (element.content.length * 4)) * 100;
+        element.progress = this.progress.toFixed(2);
+        localStorage.setItem('topic', JSON.stringify(this.visibleContent));
       });
-      this.progress = (sum / element.content.length * 4) * 100;
-      element.progress = this.progress;
-      localStorage.setItem('topic', JSON.stringify(this.visibleContent));
-    })
+    }
   }
   addNewTopic() {
     this.router.navigate(['/newtopic'])
+  }
+  logOut(){
+    localStorage.removeItem('isLoggedIn');
+    this.router.navigate(['']);
   }
 }

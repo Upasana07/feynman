@@ -1,7 +1,11 @@
-<div class="justify-content-center">
-  <mat-form-field appearance="fill">
-    <mat-label>Username</mat-label>
-    <input matInput>
-  </mat-form-field>
+<div class="justify-content-center container mt-5 text-center">
+  <div class="justify-content-center">
+    <mat-form-field appearance="fill">
+      <mat-label>Username</mat-label>
+      <input matInput [formControl]="username">
+    </mat-form-field>
+  </div>
   <button mat-stroked-button (click)=onLogin()>Login</button>
 </div>
+
+
