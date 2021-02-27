@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   username = new FormControl('');
-  names = ['admin', 'upasana', 'guest'];
+  names = ['admin', 'upasana', 'guest']; //limited usernames
   constructor(private router: Router, private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem('currentUser');
   }
   onLogin() {
+    //check credentials
     if (this.names.indexOf(this.username.value) > -1) {
       this.router.navigate(['/dashboard']);
       localStorage.setItem('isLoggedIn', 'true');
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('topic', JSON.stringify(allData));
       }
     } else {
+      //error message
       this.snackbar.open('Enter correct username', '', { duration: 300 });
     }
   }

@@ -37,6 +37,7 @@ export class NewTopicComponent implements OnInit {
     this.router.navigate(['/dashboard']);
   }
   add(details) {
+    //adding new topic
     const str = details.value.topic;
     let delimeters = ['.', ',', '|', '[', ']', '{', '}', '(', ')', '-', '?', ';', ':', '/', '\\', '\'', '\"', '\n'];
     let result = [];
@@ -44,7 +45,7 @@ export class NewTopicComponent implements OnInit {
     map.topicTitle = details.value.topicTitle;
     let temp = '';
     for (let i = 0; i < str.length; i++) {
-      if (delimeters.indexOf(str[i]) > -1) {
+      if (delimeters.indexOf(str[i]) > -1) { //if delimeter exists break the string else keep appending in the string
         result.push({ text: temp, delimeter: str[i], score: '' , class: '' });
         temp = '';
       }
@@ -52,15 +53,15 @@ export class NewTopicComponent implements OnInit {
         temp = temp + str[i];
       }
     } if (temp != "") result.push({ text: temp, delimeter: '', score: '', class: '' });
-    this.topicArr = this.allData[this.currentUser];
-    this.topicArr.push(map);
+    this.topicArr = this.allData[this.currentUser]; //fetch current user topics
+    this.topicArr.push(map); //append to the current topics
     this.allData[this.currentUser] = this.topicArr;
-    localStorage.setItem('topic', JSON.stringify(this.allData));
+    localStorage.setItem('topic', JSON.stringify(this.allData)); //set in localstorage
     this.getData();
-    this.topicDetails.reset();
+    this.topicDetails.reset(); //resetting the form
   }
-  onClick(t, i, template?: TemplateRef<any>) {
-    this.dialogRef = this.dialog.open(template, { width: 'auto', height: 'auto', data: { text: t } });
+  onClick(t, template?: TemplateRef<any>) {
+    this.dialogRef = this.dialog.open(template, { width: 'auto', height: 'auto', data: { text: t } }); //give user the option to change the score
   }
   cancel() {
     this.topic.reset();
@@ -85,12 +86,12 @@ export class NewTopicComponent implements OnInit {
         color = 'green';
         break;
     }
-    this.update(text,value,color);
+    this.update(text,value,color); //to update the text block
     this.cancel();
   }
   update(text, value, color) {
     let arr = this.allData[this.currentUser];
-    arr.forEach(a=>{
+    arr.forEach(a=>{ //search for the current text and update
       a.content.forEach(element => {
         if (element['text'] == text) {
           element['score'] = value,
@@ -102,6 +103,7 @@ export class NewTopicComponent implements OnInit {
     localStorage.setItem('topic', JSON.stringify(this.allData));
   }
   getData() {
+    //fetch the present data
     this.allData = {...JSON.parse(localStorage.getItem('topic')) || ''};
     this.currentUser = localStorage.getItem('currentUser')
     this.visibleContent = this.allData[this.currentUser];

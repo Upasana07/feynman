@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    //fetch already present data
     this.getData();
     if(this.visibleContent){
       this.visibleContent.forEach(element => {
@@ -26,15 +27,15 @@ export class DashboardComponent implements OnInit {
           else
           sum = sum + 0;
         });
-        this.progress = (sum / (element.content.length * 4)) * 100;
+        this.progress = (sum / (element.content.length * 4)) * 100; //calculate the progress
         element.progress = this.progress.toFixed(2);
         this.allData[this.currentUser] = this.visibleContent;
-        localStorage.setItem('topic', JSON.stringify(this.allData));
+        localStorage.setItem('topic', JSON.stringify(this.allData)); //set the progress
       });
     }
   }
   addNewTopic() {
-    this.router.navigate(['/newtopic'])
+    this.router.navigate(['/newtopic']);
   }
   logOut(){
     localStorage.removeItem('isLoggedIn');
