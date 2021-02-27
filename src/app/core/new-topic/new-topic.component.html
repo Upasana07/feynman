@@ -11,14 +11,16 @@
   </div>
   <div>
     <button mat-raised-button color="accent" class="mr-2" (click)=goBack()>Go Back</button>
-    <button mat-raised-button color="accent" (click)=add(topicDetails)>Add</button>
+    <button mat-raised-button color="accent" (click)=add(topicDetails) [disabled]="topicDetails.invalid">Add</button>
   </div>
 </div>
 <div class="container text-center mt-5 p-2" *ngIf="visibleContent?.length">
   <h2>Topic List</h2>
   <div *ngFor="let a of visibleContent" class="mb-5 border p-3">
-    <span *ngFor="let t of a.content; let i = index" (click)=onClick(t,i,newUserTemplate)><span ngClass="{{t.class}}"
-        matTooltip="click to score">{{t.text}}{{t.delimeter}}</span></span>
+    <span  class="highlightText" *ngFor="let t of a.content; let i = index" (click)=onClick(t,i,newUserTemplate)>
+      <span ngClass="{{t.class}}" matTooltip="click to score">{{t.text}}</span>
+      {{t.delimeter}}
+    </span>
   </div>
 </div>
 
@@ -39,3 +41,6 @@
     </div>
   </div>
 </ng-template>
+<div class="container text-center mt-2">
+  <button mat-stroked-button color="accent" (click)=logOut()>Logout</button>
+  </div>

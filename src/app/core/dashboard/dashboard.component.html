@@ -3,7 +3,7 @@
     <mat-icon>add</mat-icon>
   </button>
 </div>
-<div class="container text-center mt-2 p-2" *ngIf="visibleContent?.length"><h2>Your Progress</h2>
+<div class="container text-center mt-4 p-2 showProgress" *ngIf="visibleContent?.length"><h2>Your Progress</h2>
   <div *ngFor="let a of visibleContent" class="d-flex justify-content-center">
     <div class="d-flex justify-content-center mr-3">
       {{a.topicTitle}}

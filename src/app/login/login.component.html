@@ -2,10 +2,10 @@
   <div class="justify-content-center">
     <mat-form-field appearance="fill">
       <mat-label>Username</mat-label>
-      <input matInput [formControl]="username">
+      <input matInput [formControl]="username" (keyup.enter)=onLogin()>
     </mat-form-field>
   </div>
-  <button mat-stroked-button (click)=onLogin()>Login</button>
+  <button mat-stroked-button color="accent" (click)=onLogin()>Login</button>
 </div>
 
 

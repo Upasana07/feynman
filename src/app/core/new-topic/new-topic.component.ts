@@ -1,10 +1,7 @@
-import { getCurrencySymbol } from '@angular/common';
-import { areAllEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Component, Inject, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-new-topic',
@@ -13,8 +10,8 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class NewTopicComponent implements OnInit {
   topicDetails = new FormGroup({
-    topicTitle: new FormControl('', Validators.minLength(2)),
-    topic: new FormControl('', Validators.minLength(2))
+    topicTitle: new FormControl('', [Validators.required]),
+    topic: new FormControl('', [Validators.required, Validators.minLength(2)])
   });
   topic = new FormControl('');
   topicArr;
@@ -60,6 +57,7 @@ export class NewTopicComponent implements OnInit {
     this.allData[this.currentUser] = this.topicArr;
     localStorage.setItem('topic', JSON.stringify(this.allData));
     this.getData();
+    this.topicDetails.reset();
   }
   onClick(t, i, template?: TemplateRef<any>) {
     this.dialogRef = this.dialog.open(template, { width: 'auto', height: 'auto', data: { text: t } });
@@ -108,5 +106,10 @@ export class NewTopicComponent implements OnInit {
     this.currentUser = localStorage.getItem('currentUser')
     this.visibleContent = this.allData[this.currentUser];
     console.log(this.visibleContent);
+  }
+  logOut(){
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUser')
+    this.router.navigate(['']);
   }
 }
