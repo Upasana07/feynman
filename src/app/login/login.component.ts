@@ -10,17 +10,23 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   username = new FormControl('');
-  names = {
-    username: 'admin',
-  }
+  names = ['admin', 'upasana', 'guest'];
   constructor(private router: Router, private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUser');
   }
   onLogin() {
-    if (this.names.username == this.username.value) {
+    if (this.names.indexOf(this.username.value) > -1) {
       this.router.navigate(['/dashboard']);
       localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('currentUser', this.username.value);
+      if(!(JSON.parse(localStorage.getItem('topic') ) || {}).hasOwnProperty(this.username.value)){
+        let allData = (JSON.parse(localStorage.getItem('topic') ) || {});
+        allData[this.username.value] = [];
+        localStorage.setItem('topic', JSON.stringify(allData));
+      }
     } else {
       this.snackbar.open('Enter correct username', '', { duration: 300 });
     }

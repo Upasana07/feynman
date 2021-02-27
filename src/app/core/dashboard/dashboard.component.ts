@@ -9,10 +9,13 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
   visibleContent;
   progress;
+  currentUser;
+  allData;
+  
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.visibleContent = JSON.parse(localStorage.getItem('topic')) || '';
+    this.getData();
     if(this.visibleContent){
       this.visibleContent.forEach(element => {
         let sum: number = 0;
@@ -25,7 +28,8 @@ export class DashboardComponent implements OnInit {
         });
         this.progress = (sum / (element.content.length * 4)) * 100;
         element.progress = this.progress.toFixed(2);
-        localStorage.setItem('topic', JSON.stringify(this.visibleContent));
+        this.allData[this.currentUser] = this.visibleContent;
+        localStorage.setItem('topic', JSON.stringify(this.allData));
       });
     }
   }
@@ -34,6 +38,13 @@ export class DashboardComponent implements OnInit {
   }
   logOut(){
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUser')
     this.router.navigate(['']);
+  }
+  getData(){
+    this.allData = {...JSON.parse(localStorage.getItem('topic')) || ''};
+    this.currentUser = localStorage.getItem('currentUser')
+    this.visibleContent = this.allData[this.currentUser];
+    console.log(this.visibleContent);
   }
 }

@@ -3,13 +3,15 @@
     <mat-icon>add</mat-icon>
   </button>
 </div>
-<div class="container text-center mt-2 p-2" *ngIf="visibleContent.length"><h2>Your Progress</h2>
+<div class="container text-center mt-2 p-2" *ngIf="visibleContent?.length"><h2>Your Progress</h2>
   <div *ngFor="let a of visibleContent" class="d-flex justify-content-center">
     <div class="d-flex justify-content-center mr-3">
       {{a.topicTitle}}
     </div>
     {{a.progress}}%
   </div>
-  <button mat-stroked-button color="accent" class="mt-5"(click)=logOut()>Logout</button>
+</div>
+<div class="container text-center">
+<button mat-stroked-button color="accent" class="mt-5"(click)=logOut()>Logout</button>
 </div>
 
