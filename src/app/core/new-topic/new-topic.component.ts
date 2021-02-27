@@ -60,7 +60,7 @@ export class NewTopicComponent implements OnInit {
     this.getData();
     this.topicDetails.reset(); //resetting the form
   }
-  onClick(t, template?: TemplateRef<any>) {
+  onClick(t, i, template?: TemplateRef<any>) {
     this.dialogRef = this.dialog.open(template, { width: 'auto', height: 'auto', data: { text: t } }); //give user the option to change the score
   }
   cancel() {
@@ -69,7 +69,7 @@ export class NewTopicComponent implements OnInit {
     this.getData();
     this.dialog.closeAll();
   }
-  save(text) {
+  save(text,delimeter) {
     let value = this.scoreValue.value;
     let color = '';
     switch (value) {
@@ -86,14 +86,14 @@ export class NewTopicComponent implements OnInit {
         color = 'green';
         break;
     }
-    this.update(text,value,color); //to update the text block
+    this.update(text,value,color,delimeter); //to update the text block
     this.cancel();
   }
-  update(text, value, color) {
+  update(text, value, color,delimeter) {
     let arr = this.allData[this.currentUser];
     arr.forEach(a=>{ //search for the current text and update
       a.content.forEach(element => {
-        if (element['text'] == text) {
+        if (element['text'] == text && element['delimeter'] == delimeter) {
           element['score'] = value,
           element['class'] = color
         }

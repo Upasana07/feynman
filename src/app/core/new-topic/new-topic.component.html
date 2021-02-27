@@ -19,7 +19,7 @@
   <div *ngFor="let a of visibleContent" class="mb-5 border p-3">
     <span  class="highlightText" *ngFor="let t of a.content; let i = index" (click)=onClick(t,i,newUserTemplate)>
       <span ngClass="{{t.class}}" matTooltip="click to score">{{t.text}}</span>
-      {{t.delimeter}}
+      <span>{{t.delimeter}}</span>
     </span>
   </div>
 </div>
@@ -37,7 +37,7 @@
     </mat-form-field>
     <div class="mt-5 justify-content-between d-flex">
       <button mat-stroked-button (click)=cancel()>Cancel</button>
-      <button mat-stroked-button (click)=save(data.text.text)>Save</button>
+      <button mat-stroked-button (click)="save(data.text.text,data.text.delimeter)">Save</button>
     </div>
   </div>
 </ng-template>
